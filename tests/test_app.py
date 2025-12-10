@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app import add
+from app import add  # noqa: E402
 
 
 def test_add():
