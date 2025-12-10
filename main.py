@@ -1,4 +1,5 @@
-from app import add
+from app import add, subtract
 
 if __name__ == "__main__":
     print("2 + 3 =", add(2, 3))
+    print("5 - 2 =", subtract(5, 2))
