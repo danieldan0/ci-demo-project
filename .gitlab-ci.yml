@@ -1,0 +1,35 @@
+stages:
+  - lint
+  - test
+  - build
+
+# ---------------- LINT ----------------
+lint_job:
+  stage: lint
+  script:
+    - pip install -r requirements.txt
+    - flake8 .
+
+# ---------------- TEST + COVERAGE ----------------
+test_job:
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest --junitxml=junit-report.xml --cov=. --cov-report=term
+  coverage: '/TOTAL.*?(\d+%)/'
+  artifacts:
+    when: always
+    paths:
+      - junit-report.xml
+      - htmlcov/
+    reports:
+      junit: junit-report.xml
+
+# ---------------- BUILD ----------------
+build_job:
+  stage: build
+  script:
+    - echo "Building simple Python project..."
+    - python main.py
+  only:
+    - main
